@@ -29,6 +29,9 @@ urlpatterns = [
 
     # Получить новости выбранного раздела
     path('api/news_of_current_category', views.ShowNewsOfCurrentCategoryView.as_view()),
+
+    # Получить выбранную новость
+    path('api/current_message', views.ShowCurrentMessageView.as_view()),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -93,6 +93,20 @@ class ShowNewsOfCurrentCategoryView(APIView):
         })
 
 
+class ShowCurrentMessageView(APIView):
+    """
+    Shows current message
+    """
+
+    def post(self, request):
+        message_pk = request.POST['message_pk']
+
+        message = Message.objects.get(pk=message_pk)
+        message = MessageSerializer(message, context={'request': request}).data
+
+        return Response(message)
+
+
 class ReactAppView(View):
 
     def get(self, request):
