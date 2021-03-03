@@ -6,6 +6,8 @@ from .serializers import *
 import os
 from django.views.generic.base import View
 from django.http import HttpResponse
+from django.db.models import Q
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 class ShowRecentNewsView(APIView):
@@ -18,6 +20,47 @@ class ShowRecentNewsView(APIView):
         messages = MessageSerializer(messages, context={'request': request}, many=True).data
         return Response(messages)
         # return Response({"error_code": 'YOUR TICKET IS EXPIRED', "status": status.HTTP_403_FORBIDDEN})
+
+
+class ShowRecentNewsView(APIView):
+    """
+    Shows recent messages
+    """
+
+    def post(self, request):
+        # find_by_letters = request.POST['find_by_letters']
+
+        data = []
+        next_page = 1
+        previous_page = 1
+        products = Message.objects.all()
+        # products = Message.objects.filter(
+        #     Q(category=category_pk),
+        #     Q(name__icontains=find_by_letters) |
+        #     Q(name__icontains=find_by_letters.capitalize()) |
+        #     Q(name__icontains=find_by_letters.lower()) |
+        #     Q(name__icontains=find_by_letters.upper())
+        # )
+
+        page = request.GET.get('page', 1)
+        paginator = Paginator(products, 1)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+
+        serializer = MessageSerializer(data, context={'request': request}, many=True)
+
+        if data.has_next():
+            next_page = data.next_page_number()
+        if data.has_previous():
+            previous_page = data.previous_page_number()
+
+        return Response({'products': serializer.data, 'count': paginator.count, 'numpages': paginator.num_pages,
+                         'nextlink': '/api/recent_news?page=' + str(next_page),
+                         'prevlink': '/api/recent_news?page=' + str(previous_page)})
 
 
 class ReactAppView(View):
