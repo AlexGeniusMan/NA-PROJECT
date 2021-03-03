@@ -15,32 +15,23 @@ class ShowRecentNewsView(APIView):
     Shows recent messages
     """
 
-    def get(self, request):
-        messages = Message.objects.all()
-        messages = MessageSerializer(messages, context={'request': request}, many=True).data
-        return Response(messages)
-        # return Response({"error_code": 'YOUR TICKET IS EXPIRED', "status": status.HTTP_403_FORBIDDEN})
-
-
-class ShowRecentNewsView(APIView):
-    """
-    Shows recent messages
-    """
-
     def post(self, request):
-        # find_by_letters = request.POST['find_by_letters']
+        find_by_letters = request.POST['find_by_letters']
+        category = request.POST['category']
+        # find_by_letters = ''
+        # category = 'Спорт'
 
         data = []
         next_page = 1
         previous_page = 1
-        products = Message.objects.all()
-        # products = Message.objects.filter(
-        #     Q(category=category_pk),
-        #     Q(name__icontains=find_by_letters) |
-        #     Q(name__icontains=find_by_letters.capitalize()) |
-        #     Q(name__icontains=find_by_letters.lower()) |
-        #     Q(name__icontains=find_by_letters.upper())
-        # )
+        # products = Message.objects.all()
+        products = Message.objects.filter(
+            Q(category=category),
+            Q(title__icontains=find_by_letters) |
+            Q(title__icontains=find_by_letters.capitalize()) |
+            Q(title__icontains=find_by_letters.lower()) |
+            Q(title__icontains=find_by_letters.upper())
+        )
 
         page = request.GET.get('page', 1)
         paginator = Paginator(products, 1)
