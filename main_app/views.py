@@ -44,9 +44,13 @@ class ShowRecentNewsView(APIView):
         if data.has_previous():
             previous_page = data.previous_page_number()
 
-        return Response({'products': serializer.data, 'count': paginator.count, 'numpages': paginator.num_pages,
-                         'nextlink': '/api/recent_news?page=' + str(next_page),
-                         'prevlink': '/api/recent_news?page=' + str(previous_page)})
+        return Response({
+            'products': serializer.data,
+            'count': paginator.count,
+            'numpages': paginator.num_pages,
+            'nextlink': '/api/recent_news?page=' + str(next_page),
+            'prevlink': '/api/recent_news?page=' + str(previous_page)
+        })
 
 
 class ShowNewsOfCurrentCategoryView(APIView):
@@ -80,9 +84,13 @@ class ShowNewsOfCurrentCategoryView(APIView):
         if data.has_previous():
             previous_page = data.previous_page_number()
 
-        return Response({'products': serializer.data, 'count': paginator.count, 'numpages': paginator.num_pages,
-                         'nextlink': '/api/recent_news?page=' + str(next_page),
-                         'prevlink': '/api/recent_news?page=' + str(previous_page)})
+        return Response({
+            'products': serializer.data,
+            'count': paginator.count,
+            'numpages': paginator.num_pages,
+            'nextlink': '/api/recent_news?page=' + str(next_page),
+            'prevlink': '/api/recent_news?page=' + str(previous_page)
+        })
 
 
 class ReactAppView(View):
