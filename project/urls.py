@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Получить последние опубликованные новости
-    # path('api/users', views.ShowRecentNewsView.as_view()),
+    path('api/recent_news', views.ShowRecentNewsView.as_view()),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
