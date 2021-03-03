@@ -17,20 +17,51 @@ class ShowRecentNewsView(APIView):
 
     def post(self, request):
         find_by_letters = request.POST['find_by_letters']
-        category = request.POST['category']
-        # find_by_letters = ''
-        # category = 'Спорт'
 
         data = []
         next_page = 1
         previous_page = 1
-        # products = Message.objects.all()
         products = Message.objects.filter(
-            Q(category=category),
             Q(title__icontains=find_by_letters) |
             Q(title__icontains=find_by_letters.capitalize()) |
             Q(title__icontains=find_by_letters.lower()) |
             Q(title__icontains=find_by_letters.upper())
+        )
+
+        page = request.GET.get('page', 1)
+        paginator = Paginator(products, 1)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+
+        serializer = MessageSerializer(data, context={'request': request}, many=True)
+
+        if data.has_next():
+            next_page = data.next_page_number()
+        if data.has_previous():
+            previous_page = data.previous_page_number()
+
+        return Response({'products': serializer.data, 'count': paginator.count, 'numpages': paginator.num_pages,
+                         'nextlink': '/api/recent_news?page=' + str(next_page),
+                         'prevlink': '/api/recent_news?page=' + str(previous_page)})
+
+
+class ShowNewsOfCurrentCategoryView(APIView):
+    """
+    Shows recent messages of current category
+    """
+
+    def post(self, request):
+        category = request.POST['category']
+
+        data = []
+        next_page = 1
+        previous_page = 1
+        products = Message.objects.filter(
+            Q(category=category)
         )
 
         page = request.GET.get('page', 1)
