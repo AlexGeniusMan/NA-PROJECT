@@ -7,6 +7,7 @@ from datetime import datetime
 class Message(models.Model):
     title = models.CharField('Заголовок', max_length=50)
     img = models.ImageField('Картинка', upload_to='messages', blank=True)
+    short_description = models.TextField('Краткое описание', max_length=256)
     created_at = models.DateTimeField('Время публикации', default=datetime.now)
     content = models.JSONField('Содержание')
 
