@@ -3,6 +3,12 @@ from django.utils import timezone
 from django.db import models
 from datetime import datetime
 
+CATEGORIES = (
+    ('Небольшой', 'Небольшой'),
+    ('Средний', 'Средний'),
+    ('Большой', 'Большой'),
+)
+
 
 class Message(models.Model):
     title = models.CharField('Заголовок', max_length=50)
@@ -10,6 +16,7 @@ class Message(models.Model):
     short_description = models.TextField('Краткое описание', max_length=256)
     created_at = models.DateTimeField('Время публикации', default=datetime.now)
     content = models.JSONField('Содержание')
+    category = models.CharField("Категория", choices=CATEGORIES, max_length=64, default='none')
 
     class Meta:
         verbose_name = 'Новость'
