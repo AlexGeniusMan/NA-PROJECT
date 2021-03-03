@@ -1,0 +1,7 @@
+.git
+.idea
+/venv
+/META
+/static
+/frontend
+.env
