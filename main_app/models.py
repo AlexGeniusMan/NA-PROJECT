@@ -19,7 +19,7 @@ class Message(models.Model):
     img = models.ImageField('Картинка', upload_to='messages', blank=True)
     short_description = models.TextField('Краткое описание', max_length=256)
     created_at = models.DateTimeField('Время публикации', default=datetime.now)
-    content = models.JSONField('Содержание')
+    content = models.JSONField('Содержание', null=True)
     category = models.CharField("Категория", choices=CATEGORIES, max_length=64, default='none')
 
     class Meta:
