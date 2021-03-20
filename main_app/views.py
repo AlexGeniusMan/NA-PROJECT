@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from datetime import datetime
+from rest_framework.permissions import IsAuthenticated
 
 
 class ShowRecentMessagesView(APIView):
@@ -98,6 +99,8 @@ class AddNewMessageView(APIView):
     """
     Adds new message
     """
+
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         try:
