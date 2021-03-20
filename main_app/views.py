@@ -8,9 +8,10 @@ from django.views.generic.base import View
 from django.http import HttpResponse
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from datetime import datetime
 
 
-class ShowRecentNewsView(APIView):
+class ShowRecentMessagesView(APIView):
     """
     Shows recent messages
     """
@@ -53,7 +54,7 @@ class ShowRecentNewsView(APIView):
         })
 
 
-class ShowNewsOfCurrentCategoryView(APIView):
+class ShowMessagesOfCurrentCategoryView(APIView):
     """
     Shows recent messages of current category
     """
@@ -91,6 +92,27 @@ class ShowNewsOfCurrentCategoryView(APIView):
             'nextlink': '/api/recent_news?page=' + str(next_page),
             'prevlink': '/api/recent_news?page=' + str(previous_page)
         })
+
+
+class AddNewMessageView(APIView):
+    """
+    Adds new message
+    """
+
+    def post(self, request):
+        try:
+            title = request.data['title']
+            img = request.FILES['img']
+            short_description = request.data['short_description']
+            content = request.data['content']
+            category = request.POST['category']
+
+            Message.objects.create(title=title, img=img, short_description=short_description, content=content,
+                                   category=category)
+
+            return Response(True)
+        except:
+            return Response(False)
 
 
 class ShowCurrentMessageView(APIView):

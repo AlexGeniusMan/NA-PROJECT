@@ -25,13 +25,16 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Получить последние опубликованные новости
-    path('api/recent_news', views.ShowRecentNewsView.as_view()),
+    path('api/recent_messages', views.ShowRecentMessagesView.as_view()),
 
     # Получить новости выбранного раздела
-    path('api/news_of_current_category', views.ShowNewsOfCurrentCategoryView.as_view()),
+    path('api/news_of_current_category', views.ShowMessagesOfCurrentCategoryView.as_view()),
 
     # Получить выбранную новость
     path('api/current_message', views.ShowCurrentMessageView.as_view()),
+
+    # Добавить новость
+    path('api/add_message', views.AddNewMessageView.as_view()),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

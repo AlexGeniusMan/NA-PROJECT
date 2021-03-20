@@ -1,5 +1,4 @@
-from django.contrib.auth.models import AbstractUser
-from django.utils import timezone
+# from django.contrib.auth.models import AbstractUser
 from django.db import models
 from datetime import datetime
 
@@ -28,3 +27,9 @@ class Message(models.Model):
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def create(cls, title, img, short_description, created_at, content, category):
+        message = cls(title=title, img=img, short_description=short_description, created_at=created_at, content=content,
+                      category=category)
+        return message
