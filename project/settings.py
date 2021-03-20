@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 from decouple import config
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -152,20 +153,20 @@ REST_FRAMEWORK = {
     # ]
 }
 
-# SIMPLE_JWT = {
-#     'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
-#     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
-#     'AUTH_HEADER_TYPES': ('Bearer',),
-# }
-#
-# DJOSER = {
-#     'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
-#     'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
-#     'ACTIVATION_URL': 'activate/?uid={uid}&token={token}',
-#     'SEND_ACTIVATION_EMAIL': True,
-#     'SERIALIZERS': {},
-#     # 'LOGIN_FIELD': arenas_and_teams.models.User.email,
-#     'SET_PASSWORD_RETYPE': True,
-# }
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': 'activate/?uid={uid}&token={token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'SERIALIZERS': {},
+    # 'LOGIN_FIELD': arenas_and_teams.models.User.email,
+    'SET_PASSWORD_RETYPE': True,
+}
 
 # AUTH_USER_MODEL = 'main_app.User'
