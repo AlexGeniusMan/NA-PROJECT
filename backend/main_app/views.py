@@ -143,6 +143,16 @@ class AddOrChangeMessageView(APIView):
         except:
             return Response(False)
 
+    def delete(self, request):
+        try:
+            message_pk = request.POST['message_pk']
+            message = Message.objects.get(pk=message_pk)
+            message.delete()
+
+            return Response(True)
+        except:
+            return Response(False)
+
 
 class ShowCurrentMessageView(APIView):
     """

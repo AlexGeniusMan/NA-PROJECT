@@ -41,7 +41,7 @@ urlpatterns += [
     url(r'^auth/', include('djoser.urls')),
     url(r'^auth/', include('djoser.urls.jwt')),
 
-    # Страница создания/редактирования новости - Добавить/изменить новость
+    # Страница создания/редактирования/удаления новости - Добавить/изменить/удалить новость
     path('api/add_or_change_message', views.AddOrChangeMessageView.as_view()),
 ]
 
