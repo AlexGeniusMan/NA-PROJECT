@@ -1,8 +1,7 @@
 .git
 .idea
-/venv
-/META
-/static
-/frontend
-.env
 desktop.ini
+frontend
+/backend/META
+/backend/.env
+/backend/venv
