@@ -95,12 +95,21 @@ class ShowMessagesOfCurrentCategoryView(APIView):
         })
 
 
-class AddNewMessageView(APIView):
+class AddOrChangeMessageView(APIView):
     """
-    Adds new message
+    Adds or changes message
     """
 
     permission_classes = (IsAuthenticated,)
+
+    def get_message(self, request, message_pk):
+        try:
+            message = Message.objects.get(pk=message_pk)
+            message = MessageSerializer(message, context={'request': request}).data
+
+            return message
+        except:
+            return False
 
     def post(self, request):
         try:
@@ -110,10 +119,27 @@ class AddNewMessageView(APIView):
             content = request.data['content']
             category = request.POST['category']
 
-            Message.objects.create(title=title, img=img, short_description=short_description, content=content,
-                                   category=category)
+            message = Message.objects.create(title=title, img=img, short_description=short_description, content=content,
+                                             category=category)
 
-            return Response(True)
+            return Response(self.get_message(request, message.pk))
+        except:
+            return Response(False)
+
+    def put(self, request):
+        try:
+            message_pk = request.POST['message_pk']
+            message = Message.objects.get(pk=message_pk)
+
+            message.title = request.data['title']
+            message.img = request.FILES['img']
+            message.short_description = request.data['short_description']
+            message.content = request.data['content']
+            message.category = request.POST['category']
+
+            message.save()
+
+            return Response(self.get_message(request, message.pk))
         except:
             return Response(False)
 

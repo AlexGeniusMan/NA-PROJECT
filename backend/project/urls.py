@@ -41,8 +41,8 @@ urlpatterns += [
     url(r'^auth/', include('djoser.urls')),
     url(r'^auth/', include('djoser.urls.jwt')),
 
-    # Страница создания новости - Добавить новость
-    path('api/add_message', views.AddNewMessageView.as_view()),
+    # Страница создания/редактирования новости - Добавить/изменить новость
+    path('api/add_or_change_message', views.AddOrChangeMessageView.as_view()),
 ]
 
 # Супер-администратор портала
