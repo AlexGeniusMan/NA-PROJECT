@@ -31,7 +31,7 @@ class ShowRecentMessagesView(APIView):
         )
 
         page = request.GET.get('page', 1)
-        paginator = Paginator(products, 1)
+        paginator = Paginator(products, 3)
         try:
             data = paginator.page(page)
         except PageNotAnInteger:
@@ -124,12 +124,15 @@ class ShowCurrentMessageView(APIView):
     """
 
     def post(self, request):
-        message_pk = request.POST['message_pk']
+        try:
+            message_pk = request.POST['message_pk']
 
-        message = Message.objects.get(pk=message_pk)
-        message = MessageSerializer(message, context={'request': request}).data
+            message = Message.objects.get(pk=message_pk)
+            message = MessageSerializer(message, context={'request': request}).data
 
-        return Response(message)
+            return Response({"data": message, "status": status.HTTP_200_OK})
+        except:
+            return Response({"error_message": "MESSAGE NOT FOUND", "status": status.HTTP_404_NOT_FOUND})
 
 
 class ReactAppView(View):
