@@ -21,26 +21,34 @@ from django.conf.urls.static import static
 import main_app.views as views
 from django.urls import path, include
 
+# Посетитель портала
 urlpatterns = [
-    path('admin/', admin.site.urls),
 
-    # Получить последние опубликованные новости
+    # Главная страница - Получить последние опубликованные новости
     path('api/recent_messages', views.ShowRecentMessagesView.as_view()),
 
-    # Получить новости выбранного раздела
+    # Страница раздела - Получить новости выбранного раздела
     path('api/news_of_current_category', views.ShowMessagesOfCurrentCategoryView.as_view()),
 
-    # Получить выбранную новость
+    # Страница новости - Получить выбранную новость
     path('api/current_message', views.ShowCurrentMessageView.as_view()),
 
-    # Добавить новость
+]
+
+# Администратор портала
+urlpatterns += [
+    # Страница авторизации - Авторизация
+    url(r'^auth/', include('djoser.urls')),
+    url(r'^auth/', include('djoser.urls.jwt')),
+
+    # Страница создания новости - Добавить новость
     path('api/add_message', views.AddNewMessageView.as_view()),
 ]
 
-# Авторизация
+# Супер-администратор портала
 urlpatterns += [
-    url(r'^auth/', include('djoser.urls')),
-    url(r'^auth/', include('djoser.urls.jwt')),
+    # Страница супер-администратора
+    path('admin/', admin.site.urls),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
