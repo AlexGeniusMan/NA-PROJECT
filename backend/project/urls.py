@@ -53,4 +53,3 @@ urlpatterns += [
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 # urlpatterns += doc_url
-urlpatterns.append(url(r'^', views.ReactAppView.as_view()))

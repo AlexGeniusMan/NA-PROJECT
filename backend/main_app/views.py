@@ -170,20 +170,3 @@ class ShowCurrentMessageView(APIView):
         except:
             return Response({"error_message": "MESSAGE NOT FOUND", "status": status.HTTP_404_NOT_FOUND})
 
-
-class ReactAppView(View):
-
-    def get(self, request):
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-        try:
-            with open(os.path.join(BASE_DIR, 'frontend', 'build', 'index.html')) as file:
-                return HttpResponse(file.read())
-
-        except:
-            return HttpResponse(
-                """
-                File index.html not found ! Build your React app !
-                """,
-                status=501,
-            )
