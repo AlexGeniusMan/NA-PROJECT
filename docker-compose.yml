@@ -16,7 +16,7 @@ services:
       - static:/usr/src/news/static
       - /home/news:/usr/src/news
     ports:
-      - 8000:80
+      - 8004:80
     depends_on:
       - django
 volumes:
