@@ -36,7 +36,7 @@ Note: if you want to launch project locally, set REACT_APP_PRODUCTION_URL = "htt
 `docker-compose up --build`
 
 > Done! Project launched on 8000 port!
-
+<!---
 ![Main page](https://github.com/AlexGeniusMan/NA-PROJECT/blob/master/readme-images/main.png?raw=true)
-
+--->
 This project was made by Dev.gang.
