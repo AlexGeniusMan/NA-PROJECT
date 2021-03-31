@@ -1,7 +1,6 @@
 .git
 .idea
 desktop.ini
-frontend
 /backend/META
 /backend/.env
 /backend/venv
