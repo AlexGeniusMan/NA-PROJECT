@@ -71,7 +71,7 @@ class ShowMessagesOfCurrentCategoryView(APIView):
         )
 
         page = request.GET.get('page', 1)
-        paginator = Paginator(products, 1)
+        paginator = Paginator(products, 3)
         try:
             data = paginator.page(page)
         except PageNotAnInteger:
