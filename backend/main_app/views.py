@@ -131,8 +131,15 @@ class AddOrChangeMessageView(APIView):
             message_pk = request.POST['message_pk']
             message = Message.objects.get(pk=message_pk)
 
+            try:
+                if request.data['img'] == 'null':
+                    message.img = None
+                else:
+                    message.img = request.FILES['img']
+            except:
+                pass
+
             message.title = request.data['title']
-            message.img = request.FILES['img']
             message.short_description = request.data['short_description']
             message.content = request.data['content']
             message.category = request.POST['category']
