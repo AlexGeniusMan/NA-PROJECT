@@ -21,7 +21,7 @@ services:
     build:
       context: ./nginx
     ports:
-      - 80:8080
+      - 8000:8080
     volumes:
       - news_build_folder:/var/www/frontend
       - ./backend:/usr/src/news
