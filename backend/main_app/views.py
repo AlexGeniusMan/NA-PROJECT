@@ -12,6 +12,19 @@ from datetime import datetime
 from rest_framework.permissions import IsAuthenticated
 
 
+class UpdateViewCounterView(APIView):
+    """
+    Updates message's view counter
+    """
+
+    def post(self, request, message_id):
+        message = Message.objects.get(pk=message_id)
+        message.view_counter += 1
+        message.save()
+
+        return Response(True)
+
+
 class ShowRecentMessagesView(APIView):
     """
     Shows recent messages
@@ -176,4 +189,3 @@ class ShowCurrentMessageView(APIView):
             return Response({"data": message, "status": status.HTTP_200_OK})
         except:
             return Response({"error_message": "MESSAGE NOT FOUND", "status": status.HTTP_404_NOT_FOUND})
-

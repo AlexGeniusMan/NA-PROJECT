@@ -20,6 +20,7 @@ class Message(models.Model):
     created_at = models.DateTimeField('Время публикации', default=datetime.now)
     content = models.JSONField('Содержание', null=True, blank=True)
     category = models.CharField("Категория", choices=CATEGORIES, max_length=64, blank=True)
+    view_counter = models.IntegerField('Счетчик просмотров', null=True, default=0)
 
     class Meta:
         verbose_name = 'Новость'

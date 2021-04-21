@@ -33,6 +33,9 @@ urlpatterns = [
     # Страница новости - Получить выбранную новость
     path('api/current_message', views.ShowCurrentMessageView.as_view()),
 
+    # Увеличить счетчик просмотров выбранной новости
+    path('api/update_view_counter/<int:message_id>', views.UpdateViewCounterView.as_view()),
+
 ]
 
 # Администратор портала
