@@ -172,6 +172,7 @@ class AddOrChangeMessageView(APIView):
 
             try:
                 message.is_pinned = request.data['is_pinned']
+                message.save()
             except:
                 pass
 
