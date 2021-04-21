@@ -170,6 +170,11 @@ class AddOrChangeMessageView(APIView):
             except:
                 pass
 
+            try:
+                message.is_pinned = request.data['is_pinned']
+            except:
+                pass
+
             message.title = request.data['title']
             message.short_description = request.data['short_description']
             message.content = request.data['content']
