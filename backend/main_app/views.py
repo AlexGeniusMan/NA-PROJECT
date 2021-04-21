@@ -21,7 +21,7 @@ class GetMostPopularAndPinnedMessages(APIView):
         most_popular_messages = Message.objects.all().order_by('-view_counter')[:3]
         most_popular_messages = MessageSerializer(most_popular_messages, context={'request': request}, many=True).data
 
-        pinned_messages = Message.objects.filter(is_pinned=True)[:3]
+        pinned_messages = Message.objects.filter(is_pinned=True).order_by('-created_at')[:3]
         pinned_messages = MessageSerializer(pinned_messages, context={'request': request}, many=True).data
 
         return Response({
