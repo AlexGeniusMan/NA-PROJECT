@@ -171,7 +171,10 @@ class AddOrChangeMessageView(APIView):
                 pass
 
             try:
-                message.is_pinned = request.data['is_pinned']
+                if request.data['is_pinned'] == 'true':
+                    message.is_pinned = True
+                elif request.data['is_pinned'] == 'false':
+                    message.is_pinned = False
                 message.save()
             except:
                 pass
@@ -185,6 +188,7 @@ class AddOrChangeMessageView(APIView):
 
             return Response(self.get_message(request, message.pk))
         except:
+            raise
             return Response(False)
 
     def delete(self, request):
