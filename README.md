@@ -1,5 +1,18 @@
 # NA-PROJECT
-📰 Core backend service for open-source "News-Agency" project
+📰 "News-Agency" is an open-source project, that works like news portal.
+
+Users can view:
+1. Recent news
+2. Most pupular news
+3. Pinned news
+4. News of selected categories
+5. Coronavirus statistics
+6. Сurrency statistics
+
+Admins can:
+1. Add news
+2. Change news
+3. Delete news
 
 ## Launching project
 #### Git, Docker and Docker Compose must be installed
