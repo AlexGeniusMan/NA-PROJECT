@@ -11,8 +11,9 @@ Users can view:
 
 Admins can:
 1. Add news
-2. Change news
-3. Delete news
+2. Pin news
+3. Change news
+4. Delete news
 
 ## Launching project
 #### Git, Docker and Docker Compose must be installed
