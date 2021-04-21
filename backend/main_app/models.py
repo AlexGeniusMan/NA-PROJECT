@@ -21,6 +21,7 @@ class Message(models.Model):
     content = models.JSONField('Содержание', null=True, blank=True)
     category = models.CharField("Категория", choices=CATEGORIES, max_length=64, blank=True)
     view_counter = models.IntegerField('Счетчик просмотров', null=True, default=0)
+    is_pinned = models.BooleanField('Новость закреплена', default=False)
 
     class Meta:
         verbose_name = 'Новость'
