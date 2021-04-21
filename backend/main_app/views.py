@@ -12,6 +12,23 @@ from datetime import datetime
 from rest_framework.permissions import IsAuthenticated
 
 
+class GetMostPopularAndPinnedMessages(APIView):
+    """
+    Gets most popular and pinned messages
+    """
+
+    def post(self, request):
+        most_popular_messages = Message.objects.all().order_by('-view_counter')[:3]
+        most_popular_messages = MessageSerializer(most_popular_messages, context={'request': request}, many=True).data
+
+        # most_popular_messages = Message.objects.all().order_by('-view_counter')[:3]
+        # most_popular_messages = MessageSerializer(most_popular_messages, context={'request': request}, many=True).data
+
+        return Response({
+            'most_popular_messages': most_popular_messages
+        })
+
+
 class UpdateViewCounterView(APIView):
     """
     Updates message's view counter

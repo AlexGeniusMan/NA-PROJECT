@@ -36,6 +36,9 @@ urlpatterns = [
     # Увеличить счетчик просмотров выбранной новости
     path('api/update_view_counter/<int:message_id>', views.UpdateViewCounterView.as_view()),
 
+    # Получить самые популярные и закрепленные новости
+    path('api/get_most_popular_and_pinned_messages', views.GetMostPopularAndPinnedMessages.as_view()),
+
 ]
 
 # Администратор портала
