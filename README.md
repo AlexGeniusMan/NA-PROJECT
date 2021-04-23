@@ -27,21 +27,21 @@ git submodule init
 git submodule update
 ```
 
-2. Generate new DJANGO_SECRET_KEY and paste it to salary_backend service as SECRET_KEY environment variable in docker-compose.yml
+2. Generate new DJANGO_SECRET_KEY and paste it to news_backend service as SECRET_KEY environment variable in docker-compose.yml
 
 > To generate new DJANGO_SECRET_KEY use this instruction: https://stackoverflow.com/a/57678930/14355198
 
 ```
 services:
-  salary_backend:
+  news_backend:
     environment:
       - SECRET_KEY=NEW_DJANGO_SECRET_KEY
 ```
 
-3. Put your PRODUCTION_URL to salary_frontend service as YOUR_PRODUCTION_URL environment variable in docker-compose.yml
+3. Put your PRODUCTION_URL to news_frontend service as YOUR_PRODUCTION_URL environment variable in docker-compose.yml
 ```
 services:
-  salary_frontend:
+  news_frontend:
     environment:
       - REACT_APP_PRODUCTION_URL=http://YOUR_PRODUCTION_URL:8000/
 ```
