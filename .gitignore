@@ -3,5 +3,5 @@
 desktop.ini
 /backend/META
 /backend/.env
-/backend/venv/
+venv
 /backend/static_django
