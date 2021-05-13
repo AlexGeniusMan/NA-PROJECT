@@ -27,6 +27,9 @@ urlpatterns = [
     # Главная страница - Получить последние опубликованные новости (поиск доступен)
     path('api/recent_messages', views.ShowRecentMessagesView.as_view()),
 
+    # Главная страница - Получить самые популярные новости (поиск отсутствует)
+    path('api/popular_news', views.ShowMostPopularMessagesView.as_view()),
+
     # Страница раздела - Получить новости выбранного раздела
     path('api/news_of_current_category', views.ShowMessagesOfCurrentCategoryView.as_view()),
 

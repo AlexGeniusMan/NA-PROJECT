@@ -43,6 +43,42 @@ class UpdateViewCounterView(APIView):
         return Response(True)
 
 
+class ShowMostPopularMessagesView(APIView):
+    """
+    Shows most popular messages
+    """
+
+    def post(self, request):
+        data = []
+        next_page = 1
+        previous_page = 1
+        products = Message.objects.all().order_by('-created_at')
+
+        page = request.GET.get('page', 1)
+        paginator = Paginator(products, 3)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+
+        serializer = MessageSerializer(data, context={'request': request}, many=True)
+
+        if data.has_next():
+            next_page = data.next_page_number()
+        if data.has_previous():
+            previous_page = data.previous_page_number()
+
+        return Response({
+            'products': serializer.data,
+            'count': paginator.count,
+            'numpages': paginator.num_pages,
+            'nextlink': '/api/popular_news?page=' + str(next_page),
+            'prevlink': '/api/popular_news?page=' + str(previous_page)
+        })
+
+
 class ShowRecentMessagesView(APIView):
     """
     Shows recent messages
@@ -59,7 +95,7 @@ class ShowRecentMessagesView(APIView):
             Q(title__icontains=find_by_letters.capitalize()) |
             Q(title__icontains=find_by_letters.lower()) |
             Q(title__icontains=find_by_letters.upper())
-        )
+        ).order_by('-created_at')
 
         page = request.GET.get('page', 1)
         paginator = Paginator(products, 3)
