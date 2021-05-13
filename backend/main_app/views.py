@@ -185,7 +185,10 @@ class AddOrChangeMessageView(APIView):
             short_description = request.data['short_description']
             content = request.data['content']
             category = request.POST['category']
-            is_pinned = request.POST['is_pinned']
+            if request.data['is_pinned'] == 'true':
+                is_pinned = True
+            else:
+                is_pinned = False
 
             message = Message.objects.create(title=title, img=img, short_description=short_description, content=content,
                                              category=category, is_pinned=is_pinned)
