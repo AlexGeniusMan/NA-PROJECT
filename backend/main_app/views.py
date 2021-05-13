@@ -52,7 +52,7 @@ class ShowMostPopularMessagesView(APIView):
         data = []
         next_page = 1
         previous_page = 1
-        products = Message.objects.all().order_by('-created_at')
+        products = Message.objects.all().order_by('-view_counter')
 
         page = request.GET.get('page', 1)
         paginator = Paginator(products, 3)
